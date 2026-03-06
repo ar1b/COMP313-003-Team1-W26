@@ -1,22 +1,63 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 function Signup() {
   const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: ""
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({
+      ...formData,
+      [name]: value
+    });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Signup data:', formData);
-    // TODO: Connect with backend API
+
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          username: formData.username,
+          email: formData.email,
+          password: formData.password
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Signup successful!");
+
+        setFormData({
+          username: "",
+          email: "",
+          password: "",
+          confirmPassword: ""
+        });
+
+        console.log(data);
+      } else {
+        alert(data.error || "Signup failed");
+      }
+
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Server error");
+    }
   };
 
   return (
