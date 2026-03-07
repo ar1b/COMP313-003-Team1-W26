@@ -53,7 +53,6 @@ function Signup() {
       } else {
         alert(data.error || "Signup failed");
       }
-
     } catch (error) {
       console.error("Error:", error);
       alert("Server error");
