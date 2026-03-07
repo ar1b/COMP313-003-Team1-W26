@@ -14,13 +14,39 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login data:", formData);
-    // Add fetch to backend here if needed
+
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("Login success:", data);
+
+        // Save logged in user
+        localStorage.setItem("user", JSON.stringify(data.user));
+
+        alert("Login successful!");
+      } else {
+        alert(data.error || "Login failed");
+      }
+
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Server error");
+    }
   };
 
   return (
     <form onSubmit={handleSubmit} className="login-form">
       <h2>Login</h2>
+
       <input
         type="email"
         name="email"
@@ -29,6 +55,7 @@ function Login() {
         onChange={handleChange}
         required
       />
+
       <input
         type="password"
         name="password"
@@ -37,6 +64,7 @@ function Login() {
         onChange={handleChange}
         required
       />
+
       <button type="submit">Login</button>
     </form>
   );
