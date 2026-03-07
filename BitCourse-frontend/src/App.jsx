@@ -1,45 +1,36 @@
+// src/App.jsx
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
 import Signup from "./components/Signup";
-import "./components/Signup.css";
+import Login from "./components/Login";
+import "./App.css";
+import "./components/Signup.css"; // optional, keep if your Signup CSS is separate
+import "./components/Login.css";  // optional, keep if your Login CSS is separate
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [showLogin, setShowLogin] = useState(true); // toggle between Login and Signup
 
   return (
-    <div className="App">
-      {/* Logo section */}
-      <div className="logo-container">
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-
-      <h1>Vite + React</h1>
-
-      {/* Counter example */}
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+    <div className="app-container">
+      {/* Toggle buttons */}
+      <div className="toggle-buttons">
+        <button
+          className={showLogin ? "active" : ""}
+          onClick={() => setShowLogin(true)}
+        >
+          Login
         </button>
-
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+        <button
+          className={!showLogin ? "active" : ""}
+          onClick={() => setShowLogin(false)}
+        >
+          Signup
+        </button>
       </div>
 
-      {/* Signup component */}
-      <Signup />
-
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {/* Form area */}
+      <div className="form-wrapper">
+        {showLogin ? <Login /> : <Signup />}
+      </div>
     </div>
   );
 }
