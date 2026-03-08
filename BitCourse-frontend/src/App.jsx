@@ -1,37 +1,40 @@
 // src/App.jsx
-import { useState } from "react";
+
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import Navbar from "./components/Navbar";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
+
 import "./App.css";
-import "./components/Signup.css"; // optional, keep if your Signup CSS is separate
-import "./components/Login.css";  // optional, keep if your Login CSS is separate
+import "./components/Signup.css";
+import "./components/Login.css";
+import "./components/Navbar.css";
 
 function App() {
-  const [showLogin, setShowLogin] = useState(true); // toggle between Login and Signup
-
   return (
-    <div className="app-container">
-      {/* Toggle buttons */}
-      <div className="toggle-buttons">
-        <button
-          className={showLogin ? "active" : ""}
-          onClick={() => setShowLogin(true)}
-        >
-          Login
-        </button>
-        <button
-          className={!showLogin ? "active" : ""}
-          onClick={() => setShowLogin(false)}
-        >
-          Signup
-        </button>
-      </div>
+    <Router>
+      <div className="app-container">
 
-      {/* Form area */}
-      <div className="form-wrapper">
-        {showLogin ? <Login /> : <Signup />}
+        {/* Navigation Bar */}
+        <Navbar />
+
+        {/* Routes only for completed features */}
+        <div className="page-container">
+          <Routes>
+
+            {/* Default page */}
+            <Route path="/" element={<Login />} />
+
+            <Route path="/login" element={<Login />} />
+
+            <Route path="/signup" element={<Signup />} />
+
+          </Routes>
+        </div>
+
       </div>
-    </div>
+    </Router>
   );
 }
 
