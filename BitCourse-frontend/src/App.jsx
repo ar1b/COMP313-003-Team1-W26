@@ -3,11 +3,11 @@ import { useState } from "react";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import "./App.css";
-import "./components/Signup.css"; // optional, keep if your Signup CSS is separate
-import "./components/Login.css";  // optional, keep if your Login CSS is separate
+import "./components/Signup.css"; 
+import "./components/Login.css";  
 
 function App() {
-  const [showLogin, setShowLogin] = useState(true); // toggle between Login and Signup
+  const [showLogin, setShowLogin] = useState(true);
 
   return (
     <div className="app-container">
