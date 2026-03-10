@@ -1,0 +1,35 @@
+.subject-container {
+  padding: 20px;
+}
+
+.subject-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+  gap: 20px;
+}
+
+.card {
+  background: #f5f5f5;
+  padding: 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  text-align: center;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .subject-cards {
+    grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
+  }
+}
+
+@media (max-width: 600px) {
+  .subject-cards {
+    grid-template-columns: 1fr; /* 1 card per row */
+  }
+}

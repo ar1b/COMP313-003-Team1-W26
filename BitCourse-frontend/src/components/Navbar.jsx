@@ -9,8 +9,9 @@ function Navbar() {
         <Link to="/login">Login</Link>
         <Link to="/signup">Signup</Link>
 
-         {/* Temporary link for dashboard testing */}
+         {/*  dashboard testing */}
         <Link to="/dashboard">Dashboard</Link>
+        <Link to="/subjects">Subjects</Link>
       </div>
 
     </nav>
