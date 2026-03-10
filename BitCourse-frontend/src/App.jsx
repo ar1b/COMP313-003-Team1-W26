@@ -5,11 +5,13 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
+import Dashboard from "./pages/Dashboard";
 
 import "./App.css";
 import "./components/Signup.css";
 import "./components/Login.css";
 import "./components/Navbar.css";
+
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
             <Route path="/login" element={<Login />} />
 
             <Route path="/signup" element={<Signup />} />
+
+            <Route path="/dashboard" element={<Dashboard />} />
 
           </Routes>
         </div>
