@@ -8,6 +8,9 @@ function Navbar() {
       <div className="nav-links">
         <Link to="/login">Login</Link>
         <Link to="/signup">Signup</Link>
+
+         {/* Temporary link for dashboard testing */}
+        <Link to="/dashboard">Dashboard</Link>
       </div>
 
     </nav>
