@@ -1,0 +1,7 @@
+[build]
+buildCommand = "cd bitcourse-backend && npm install"
+
+[deploy]
+startCommand = "cd bitcourse-backend && npx tsx src/index.ts"
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3
