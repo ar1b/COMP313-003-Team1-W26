@@ -20,11 +20,6 @@ const aj = arcjet({
                 "CATEGORY:PREVIEW",
             ],
         }),
-        slidingWindow({
-            mode: "LIVE",
-            interval: "2s",
-            max: 5,
-        }),
     ],
 });
 
