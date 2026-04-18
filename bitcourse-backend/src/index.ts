@@ -38,7 +38,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
 
 app.all("/api/auth/*splat", toNodeHandler(auth));
 
