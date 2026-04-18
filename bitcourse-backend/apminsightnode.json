@@ -1,6 +1,6 @@
 {
   "licenceKey": "us_65e5fbd4d62f3248e74c3769720f02ac",
   "appName": "bitcourse-backend",
-  "port": 8000
+  "port": 8000,
+  "server": "apm.site24x7.com"
 }
-
