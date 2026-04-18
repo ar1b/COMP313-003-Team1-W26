@@ -1,4 +1,4 @@
-//import { AdvancedImage } from "@cloudinary/react";
+import { AdvancedImage } from "@cloudinary/react";
 import { useShow } from "@refinedev/core";
 import { useTable } from "@refinedev/react-table";
 import { ColumnDef } from "@tanstack/react-table";
@@ -16,7 +16,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-//import { bannerPhoto } from "@/lib/cloudinary";
+import { bannerPhoto } from "@/lib/cloudinary";
 import { ClassDetails } from "@/types";
 
 type ClassUser = {
@@ -241,7 +241,7 @@ const ClassesShow = () => {
                     <CardTitle>Enrolled Students</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <DataTable table={studentsTable} paginationVariant="simple" />
+                    <DataTable table={studentsTable}  />
                 </CardContent>
             </Card>
         </ShowView>

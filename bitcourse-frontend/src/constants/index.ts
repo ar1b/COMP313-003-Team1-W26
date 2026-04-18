@@ -21,6 +21,7 @@ export const ROLE_OPTIONS = [
 
 export const DEPARTMENTS = [
     "Computer Science",
+    "Electronics & Communication",
     "Mathematics",
     "Physics",
     "Chemistry",
@@ -40,6 +41,7 @@ export const DEPARTMENTS = [
     "Music",
     "Physical Education",
     "Law",
+
 ] as const;
 
 export const DEPARTMENT_OPTIONS = DEPARTMENTS.map((dept) => ({
