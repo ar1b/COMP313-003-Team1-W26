@@ -9,6 +9,11 @@ const securityMiddleware = async (
     res: Response,
     next: NextFunction
 ) => {
+    // Skip OPTIONS preflight requests
+    if (req.method === "OPTIONS") {
+        return next();
+    }
+
     // If NODE_ENV is TEST, skip security middleware
     if (process.env.NODE_ENV === "test") {
         return next();
@@ -31,9 +36,9 @@ const securityMiddleware = async (
                 message = "User request limit exceeded (10 per minute). Please wait.";
                 break;
             default:
-                limit = 5;
+                limit = 30;
                 message =
-                    "Guest request limit exceeded (5 per minute). Please sign up for higher limits.";
+                    "Guest request limit exceeded. Please sign up for higher limits.";
                 break;
         }
 

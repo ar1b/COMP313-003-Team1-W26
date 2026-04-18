@@ -73,4 +73,35 @@ router.get("/", async (req, res) => {
 });
 
 
+router.post("/", async (req, res) => {
+    try {
+        const { name, code, description, departmentId } = req.body;
+
+        if (!name || !code || !description || !departmentId) {
+            return res.status(400).json({ error: "name, code, description, and departmentId are required" });
+        }
+
+        const [created] = await db
+            .insert(subjects)
+            .values({ name, code, description, departmentId: Number(departmentId) })
+            .returning();
+
+        if (!created) throw new Error("Insert failed");
+
+        const [withDept] = await db
+            .select({
+                ...getTableColumns(subjects),
+                department: { ...getTableColumns(departments) },
+            })
+            .from(subjects)
+            .leftJoin(departments, eq(subjects.departmentId, departments.id))
+            .where(eq(subjects.id, created.id));
+
+        res.status(201).json({ data: withDept });
+    } catch (error) {
+        console.error("POST /subjects error:", error);
+        res.status(500).json({ error: "Failed to create subject" });
+    }
+});
+
 export default router;

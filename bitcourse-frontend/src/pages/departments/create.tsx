@@ -1,6 +1,6 @@
 import { useForm } from "@refinedev/react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useBack, useList } from "@refinedev/core";
+import { useBack } from "@refinedev/core";
 import { Loader2 } from "lucide-react";
 import z from "zod";
 
@@ -17,25 +17,17 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
 import { CreateView } from "@/components/refine-ui/views/create-view";
 import { Breadcrumb } from "@/components/refine-ui/layout/breadcrumb";
-import { subjectSchema } from "@/lib/schema";
-import { Department } from "@/types";
+import { departmentSchema } from "@/lib/schema";
 
-const SubjectsCreate = () => {
+const DepartmentsCreate = () => {
     const back = useBack();
 
     const form = useForm({
-        resolver: zodResolver(subjectSchema),
+        resolver: zodResolver(departmentSchema),
         refineCoreProps: {
-            resource: "subjects",
+            resource: "departments",
             action: "create",
         },
     });
@@ -47,28 +39,20 @@ const SubjectsCreate = () => {
         control,
     } = form;
 
-    const { query: departmentsQuery } = useList<Department>({
-        resource: "departments",
-        pagination: { pageSize: 100 },
-    });
-
-    const departments = departmentsQuery.data?.data ?? [];
-    const departmentsLoading = departmentsQuery.isLoading;
-
-    const onSubmit = async (values: z.infer<typeof subjectSchema>) => {
+    const onSubmit = async (values: z.infer<typeof departmentSchema>) => {
         try {
             await onFinish(values);
         } catch (error) {
-            console.error("Error creating subject:", error);
+            console.error("Error creating department:", error);
         }
     };
 
     return (
         <CreateView className="class-view">
             <Breadcrumb />
-            <h1 className="page-title">Create a Subject</h1>
+            <h1 className="page-title">Create a Department</h1>
             <div className="intro-row">
-                <p>Provide the required information below to add a subject.</p>
+                <p>Provide the required information below to add a department.</p>
                 <Button onClick={() => back()}>Go Back</Button>
             </div>
 
@@ -87,22 +71,6 @@ const SubjectsCreate = () => {
                     <CardContent className="mt-7">
                         <Form {...form}>
                             <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-                                <FormField
-                                    control={control}
-                                    name="name"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>
-                                                Subject Name <span className="text-orange-600">*</span>
-                                            </FormLabel>
-                                            <FormControl>
-                                                <Input placeholder="Introduction to Programming" {...field} />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-
                                 <div className="grid sm:grid-cols-2 gap-4">
                                     <FormField
                                         control={control}
@@ -110,10 +78,10 @@ const SubjectsCreate = () => {
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormLabel>
-                                                    Subject Code <span className="text-orange-600">*</span>
+                                                    Department Code <span className="text-orange-600">*</span>
                                                 </FormLabel>
                                                 <FormControl>
-                                                    <Input placeholder="CS101" {...field} />
+                                                    <Input placeholder="CS" {...field} />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -122,30 +90,15 @@ const SubjectsCreate = () => {
 
                                     <FormField
                                         control={control}
-                                        name="departmentId"
+                                        name="name"
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormLabel>
-                                                    Department <span className="text-orange-600">*</span>
+                                                    Department Name <span className="text-orange-600">*</span>
                                                 </FormLabel>
-                                                <Select
-                                                    onValueChange={(value) => field.onChange(Number(value))}
-                                                    value={field.value?.toString()}
-                                                    disabled={departmentsLoading}
-                                                >
-                                                    <FormControl>
-                                                        <SelectTrigger className="w-full">
-                                                            <SelectValue placeholder="Select a department" />
-                                                        </SelectTrigger>
-                                                    </FormControl>
-                                                    <SelectContent>
-                                                        {departments.map((dept) => (
-                                                            <SelectItem key={dept.id} value={dept.id.toString()}>
-                                                                {dept.name}
-                                                            </SelectItem>
-                                                        ))}
-                                                    </SelectContent>
-                                                </Select>
+                                                <FormControl>
+                                                    <Input placeholder="Computer Science" {...field} />
+                                                </FormControl>
                                                 <FormMessage />
                                             </FormItem>
                                         )}
@@ -162,7 +115,7 @@ const SubjectsCreate = () => {
                                             </FormLabel>
                                             <FormControl>
                                                 <Textarea
-                                                    placeholder="Brief description of the subject"
+                                                    placeholder="Brief description of the department"
                                                     {...field}
                                                 />
                                             </FormControl>
@@ -176,11 +129,11 @@ const SubjectsCreate = () => {
                                 <Button type="submit" size="lg" className="w-full">
                                     {isSubmitting ? (
                                         <div className="flex gap-1">
-                                            <span>Creating Subject...</span>
+                                            <span>Creating Department...</span>
                                             <Loader2 className="inline-block ml-2 animate-spin" />
                                         </div>
                                     ) : (
-                                        "Create Subject"
+                                        "Create Department"
                                     )}
                                 </Button>
                             </form>
@@ -192,4 +145,4 @@ const SubjectsCreate = () => {
     );
 };
 
-export default SubjectsCreate;
+export default DepartmentsCreate;
