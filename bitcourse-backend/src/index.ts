@@ -12,13 +12,26 @@ import {toNodeHandler} from "better-auth/node";
 import {auth} from "./lib/auth.js";
 
 const app = express();
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
+
+const allowedOrigins = [
+    process.env.FRONTEND_URL,
+    "https://comp-313-003-team1-w26.vercel.app",
+    "https://comp313-003-team1-w26-frtkjdyse-ar1bs-projects.vercel.app",
+    "http://localhost:5173",
+].filter(Boolean) as string[];
 
 app.use(
     cors({
-        origin: process.env.FRONTEND_URL, // React app URL
-        methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed HTTP methods
-        credentials: true, // allow cookies
+        origin: (origin, callback) => {
+            if (!origin || allowedOrigins.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(new Error("Not allowed by CORS"));
+            }
+        },
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        credentials: true,
     })
 );
 
@@ -39,4 +52,3 @@ app.listen(PORT, () => {
 app.use("/api/subjects", subjectsRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/classes", classesRouter);
-
